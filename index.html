@@ -1,0 +1,434 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sagnik Kumar | AI Engineer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#050816;
+color:white;
+overflow-x:hidden;
+}
+
+#particles-js{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+z-index:-1;
+}
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:center;
+gap:40px;
+padding:20px;
+backdrop-filter:blur(12px);
+background:rgba(0,0,0,0.2);
+z-index:999;
+}
+
+nav a{
+text-decoration:none;
+color:white;
+font-weight:600;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#00e5ff;
+}
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.hero h1{
+font-size:5rem;
+background:linear-gradient(90deg,#00e5ff,#00ff88);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero h2{
+margin-top:15px;
+font-size:1.5rem;
+color:#ccc;
+}
+
+.hero p{
+max-width:800px;
+margin-top:20px;
+line-height:1.8;
+}
+
+.btns{
+margin-top:30px;
+}
+
+.btn{
+display:inline-block;
+padding:12px 25px;
+margin:10px;
+border-radius:50px;
+text-decoration:none;
+font-weight:600;
+transition:0.4s;
+}
+
+.primary{
+background:#00e5ff;
+color:black;
+}
+
+.secondary{
+border:2px solid #00e5ff;
+color:#00e5ff;
+}
+
+.btn:hover{
+transform:translateY(-5px);
+}
+
+section{
+padding:100px 10%;
+}
+
+.section-title{
+font-size:2.5rem;
+margin-bottom:40px;
+text-align:center;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:25px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+padding:25px;
+border-radius:20px;
+border:1px solid rgba(255,255,255,0.1);
+transition:0.4s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+border-color:#00e5ff;
+}
+
+.card h3{
+margin-bottom:10px;
+color:#00e5ff;
+}
+
+.timeline{
+max-width:1000px;
+margin:auto;
+}
+
+.timeline-item{
+margin-bottom:30px;
+padding:25px;
+background:rgba(255,255,255,0.05);
+border-radius:15px;
+}
+
+.skills{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+}
+
+.skill{
+padding:12px 20px;
+background:#00e5ff20;
+border:1px solid #00e5ff;
+border-radius:30px;
+}
+
+.counter{
+font-size:3rem;
+font-weight:bold;
+color:#00e5ff;
+}
+
+.contact{
+text-align:center;
+}
+
+footer{
+padding:40px;
+text-align:center;
+color:#999;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:3rem;
+}
+
+.hero h2{
+font-size:1.1rem;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<nav>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#experience">Experience</a>
+<a href="#projects">Projects</a>
+<a href="#achievements">Achievements</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<section class="hero">
+
+<h1>Sagnik Kumar</h1>
+
+<h2 id="typing"></h2>
+
+<p>
+Computer Science Undergraduate | ML Engineer |
+Computer Vision Researcher | Deep Learning Enthusiast
+</p>
+
+<div class="btns">
+
+<a class="btn primary" href="#">
+Resume</a>
+
+<a class="btn secondary"
+href="https://github.com/Sk1750-alt"
+target="_blank">
+GitHub
+</a>
+
+</div>
+
+</section>
+
+<section id="about">
+
+<h2 class="section-title">About Me</h2>
+
+<div class="card">
+
+<p>
+I am a Computer Science undergraduate at
+Ramakrishna Mission Vidyamandira.
+
+My interests include Machine Learning,
+Computer Vision, Deepfake Detection,
+Multimodal AI and Intelligent Surveillance Systems.
+
+Currently working as a Software Developer
+at FaceOff Technologies and building
+AI-powered products.
+</p>
+
+</div>
+
+</section>
+
+<section id="skills">
+
+<h2 class="section-title">Technical Skills</h2>
+
+<div class="skills">
+
+<div class="skill">Python</div>
+<div class="skill">Java</div>
+<div class="skill">C</div>
+<div class="skill">Machine Learning</div>
+<div class="skill">Deep Learning</div>
+<div class="skill">Computer Vision</div>
+<div class="skill">PyTorch</div>
+<div class="skill">TensorFlow</div>
+<div class="skill">OpenCV</div>
+<div class="skill">FastAPI</div>
+<div class="skill">Django</div>
+<div class="skill">React</div>
+<div class="skill">Git</div>
+
+</div>
+
+</section>
+
+<section id="experience">
+
+<h2 class="section-title">Experience</h2>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<h3>FaceOff Technologies</h3>
+<p>Software Developer | 2025 - Present</p>
+</div>
+
+<div class="timeline-item">
+<h3>Google Student Ambassador</h3>
+<p>2025</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="projects">
+
+<h2 class="section-title">Projects</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Deepfake Detection</h3>
+<p>Explainable multimodal deepfake detection using XPlainVerse.</p>
+</div>
+
+<div class="card">
+<h3>FaceOff AI</h3>
+<p>Facial recognition and surveillance intelligence platform.</p>
+</div>
+
+<div class="card">
+<h3>Document Forgery Detection</h3>
+<p>Forgery detection for Aadhaar and PAN cards.</p>
+</div>
+
+<div class="card">
+<h3>Emotion Analysis</h3>
+<p>Multimodal emotion detection and behavioural analytics.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="achievements">
+
+<h2 class="section-title">Achievements</h2>
+
+<div class="grid">
+
+<div class="card">
+<div class="counter">Top 5</div>
+<p>IIT KGP Techfest 2025</p>
+</div>
+
+<div class="card">
+<div class="counter">Top 5</div>
+<p>IIT KGP Techfest 2026</p>
+</div>
+
+<div class="card">
+<div class="counter">1st</div>
+<p>The Turing Show</p>
+</div>
+
+<div class="card">
+<div class="counter">3rd</div>
+<p>IETE Eastern Zonal Seminar</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="contact" class="contact">
+
+<h2 class="section-title">Contact</h2>
+
+<p>Email: sagnikkumar1750@gmail.com</p>
+
+<p>GitHub: Sk1750-alt</p>
+
+<p>LinkedIn: sagnik-kumar-699514269</p>
+
+</section>
+
+<footer>
+© 2026 Sagnik Kumar
+</footer>
+
+<script>
+
+const text =
+"ML Engineer | Computer Vision | Deep Learning | AI Research";
+
+let i=0;
+
+function typeWriter(){
+
+if(i<text.length){
+
+document.getElementById("typing").innerHTML += text.charAt(i);
+
+i++;
+
+setTimeout(typeWriter,60);
+
+}
+
+}
+
+typeWriter();
+
+particlesJS("particles-js",{
+
+particles:{
+number:{value:100},
+size:{value:3},
+move:{speed:2},
+line_linked:{
+enable:true
+}
+}
+
+});
+
+</script>
+
+</body>
+</html>
