@@ -1,434 +1,614 @@
+from pathlib import Path
 
-<!DOCTYPE html>
+html = r'''<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sagnik Kumar — Computer Science student, ML engineer, researcher and builder working across computer vision, multimodal AI and intelligent systems.">
+  <meta name="theme-color" content="#f5f5f0">
+  <title>Sagnik Kumar — AI · Research · Systems</title>
 
-<title>Sagnik Kumar | AI Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f5f5f0;
+      --surface:#ffffff;
+      --text:#11110f;
+      --muted:#6d6d66;
+      --line:#deded7;
+      --soft:#ecece5;
+      --accent:#ff5a36;
+      --accent-2:#1b63ff;
+      --dark:#11110f;
+      --shadow:0 18px 60px rgba(17,17,15,.08);
+      --radius:24px;
+    }
 
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,sans-serif;
+      overflow-x:hidden;
+      line-height:1.55;
+    }
+    body.dark{
+      --bg:#11110f;
+      --surface:#191916;
+      --text:#f4f4ed;
+      --muted:#a4a49b;
+      --line:#30302b;
+      --soft:#24241f;
+      --shadow:0 18px 60px rgba(0,0,0,.28);
+    }
+    ::selection{background:var(--text);color:var(--bg)}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .mono{font-family:"DM Mono",monospace}
+    .wrap{width:min(1180px,calc(100% - 48px));margin:auto}
 
-<style>
+    /* top bar */
+    .nav{
+      position:fixed;top:0;left:0;right:0;z-index:50;
+      padding:18px 0;
+      background:color-mix(in srgb,var(--bg) 84%,transparent);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid color-mix(in srgb,var(--line) 75%,transparent);
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{font-size:15px;font-weight:800;letter-spacing:-.03em}
+    .brand span{color:var(--accent)}
+    .nav-links{display:flex;gap:26px;align-items:center}
+    .nav-links a{font-size:13px;color:var(--muted);transition:.25s}
+    .nav-links a:hover{color:var(--text)}
+    .nav-actions{display:flex;gap:8px;align-items:center}
+    .icon-btn{
+      width:38px;height:38px;border:1px solid var(--line);border-radius:50%;
+      background:var(--surface);color:var(--text);cursor:pointer;
+      display:grid;place-items:center;transition:.25s
+    }
+    .icon-btn:hover{transform:translateY(-2px);border-color:var(--text)}
+    .menu-btn{display:none}
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-scroll-behavior:smooth;
-font-family:'Poppins',sans-serif;
-}
+    /* hero */
+    .hero{min-height:100vh;display:flex;align-items:center;padding:150px 0 90px;position:relative}
+    .hero-grid{
+      display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:end;
+    }
+    .eyebrow{
+      display:flex;align-items:center;gap:10px;color:var(--muted);
+      font-size:12px;text-transform:uppercase;letter-spacing:.13em;margin-bottom:28px
+    }
+    .eyebrow i{width:8px;height:8px;border-radius:50%;background:#24a148;display:block;box-shadow:0 0 0 5px rgba(36,161,72,.1)}
+    h1{
+      font-size:clamp(4.5rem,10vw,9.8rem);
+      line-height:.83;letter-spacing:-.085em;font-weight:800;
+      max-width:950px;
+    }
+    .hero-copy{margin-top:42px;max-width:670px;font-size:19px;color:var(--muted)}
+    .hero-copy strong{color:var(--text);font-weight:600}
+    .hero-cta{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:13px 18px;border-radius:999px;border:1px solid var(--text);
+      font-size:13px;font-weight:600;transition:.3s;cursor:pointer;
+      position:relative;overflow:hidden
+    }
+    .btn.primary{background:var(--text);color:var(--bg)}
+    .btn.secondary{background:transparent;border-color:var(--line)}
+    .btn:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+    .btn .arrow{transition:.3s}
+    .btn:hover .arrow{transform:translate(3px,-3px)}
+    .hero-meta{border-top:1px solid var(--line);padding-top:18px;display:grid;gap:24px}
+    .meta-row{display:flex;justify-content:space-between;gap:20px;font-size:12px}
+    .meta-row span:first-child{color:var(--muted)}
+    .meta-row span:last-child{text-align:right;max-width:210px}
 
-body{
-background:#050816;
-color:white;
-overflow-x:hidden;
-}
+    .scroll-note{position:absolute;bottom:34px;left:0;color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+    .scroll-note::after{content:"";display:inline-block;width:55px;height:1px;background:var(--line);vertical-align:middle;margin-left:12px}
 
-#particles-js{
-position:fixed;
-width:100%;
-height:100%;
-top:0;
-left:0;
-z-index:-1;
-}
+    /* sections */
+    section{padding:130px 0;border-top:1px solid var(--line)}
+    .section-head{display:grid;grid-template-columns:120px 1fr;gap:50px;margin-bottom:65px}
+    .section-number{font-size:12px;color:var(--muted)}
+    .section-title{font-size:clamp(2.3rem,5vw,5rem);letter-spacing:-.065em;line-height:.95;max-width:850px}
+    .section-intro{margin-top:22px;color:var(--muted);max-width:650px;font-size:16px}
 
-nav{
-position:fixed;
-top:0;
-width:100%;
-display:flex;
-justify-content:center;
-gap:40px;
-padding:20px;
-backdrop-filter:blur(12px);
-background:rgba(0,0,0,0.2);
-z-index:999;
-}
+    /* about */
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+    .about-large{font-size:clamp(1.5rem,3vw,2.6rem);line-height:1.15;letter-spacing:-.045em}
+    .about-large em{font-style:normal;color:var(--muted)}
+    .about-side{color:var(--muted);font-size:15px;max-width:520px}
+    .about-side p+p{margin-top:22px}
 
-nav a{
-text-decoration:none;
-color:white;
-font-weight:600;
-transition:0.3s;
-}
+    /* marquee */
+    .ticker{
+      border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+      overflow:hidden;padding:20px 0;margin:0;
+    }
+    .ticker-track{display:flex;width:max-content;animation:marquee 28s linear infinite}
+    .ticker-item{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);padding-right:55px}
+    .ticker-item b{color:var(--accent);margin-right:55px}
+    @keyframes marquee{to{transform:translateX(-50%)}}
 
-nav a:hover{
-color:#00e5ff;
-}
+    /* work */
+    .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:30px}
+    .filter{
+      border:1px solid var(--line);background:transparent;color:var(--muted);
+      padding:9px 14px;border-radius:999px;font-size:12px;cursor:pointer;transition:.25s
+    }
+    .filter.active,.filter:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
+    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .project{
+      background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+      padding:30px;min-height:330px;display:flex;flex-direction:column;justify-content:space-between;
+      transition:.4s;position:relative;overflow:hidden
+    }
+    .project::before{
+      content:"";position:absolute;width:230px;height:230px;border-radius:50%;
+      background:radial-gradient(circle,color-mix(in srgb,var(--accent) 12%,transparent),transparent 68%);
+      right:-90px;top:-90px;opacity:0;transition:.4s
+    }
+    .project:hover{transform:translateY(-7px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--text) 35%,var(--line))}
+    .project:hover::before{opacity:1}
+    .project-top{display:flex;justify-content:space-between;gap:20px;position:relative}
+    .project-index{font-size:11px;color:var(--muted)}
+    .project-type{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+    .project h3{font-size:clamp(1.7rem,3vw,3rem);letter-spacing:-.06em;line-height:.98;max-width:500px;margin-bottom:15px}
+    .project p{color:var(--muted);font-size:14px;max-width:480px}
+    .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
+    .tag{font-family:"DM Mono",monospace;font-size:10px;border:1px solid var(--line);padding:6px 8px;border-radius:999px;color:var(--muted)}
+    .project-link{font-size:12px;margin-top:30px;display:inline-flex;align-items:center;gap:8px}
+    .project-link span{color:var(--accent);font-size:18px;transition:.25s}
+    .project:hover .project-link span{transform:translate(3px,-3px)}
 
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:20px;
-}
+    /* research */
+    .research-list{border-top:1px solid var(--line)}
+    .research-item{
+      display:grid;grid-template-columns:110px 1fr 150px;gap:30px;
+      padding:27px 0;border-bottom:1px solid var(--line);align-items:center;
+      transition:.25s
+    }
+    .research-item:hover{padding-left:12px}
+    .research-year,.research-kind{font-size:11px;color:var(--muted)}
+    .research-title{font-size:20px;letter-spacing:-.035em}
+    .research-kind{text-align:right}
 
-.hero h1{
-font-size:5rem;
-background:linear-gradient(90deg,#00e5ff,#00ff88);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
+    /* experience */
+    .experience{display:grid;grid-template-columns:1fr 2fr;gap:80px}
+    .experience-note{color:var(--muted);font-size:14px}
+    .exp-list{border-top:1px solid var(--line)}
+    .exp{display:grid;grid-template-columns:140px 1fr;gap:30px;padding:30px 0;border-bottom:1px solid var(--line)}
+    .exp-date{font-size:11px;color:var(--muted)}
+    .exp h3{font-size:22px;letter-spacing:-.04em}
+    .exp p{font-size:14px;color:var(--muted);margin-top:7px}
 
-.hero h2{
-margin-top:15px;
-font-size:1.5rem;
-color:#ccc;
-}
+    /* achievements */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .stat{padding:34px 25px;border-right:1px solid var(--line)}
+    .stat:last-child{border-right:0}
+    .stat-num{font-size:clamp(2.5rem,4vw,4.5rem);font-weight:700;letter-spacing:-.07em;line-height:1}
+    .stat-label{margin-top:12px;color:var(--muted);font-size:12px;max-width:150px}
 
-.hero p{
-max-width:800px;
-margin-top:20px;
-line-height:1.8;
-}
+    /* skills */
+    .skills-wrap{display:flex;flex-wrap:wrap;gap:9px}
+    .skill{
+      padding:11px 15px;border:1px solid var(--line);border-radius:999px;
+      font-size:13px;color:var(--muted);transition:.25s
+    }
+    .skill:hover{color:var(--text);border-color:var(--text);transform:translateY(-2px)}
 
-.btns{
-margin-top:30px;
-}
+    /* contact */
+    .contact-section{background:var(--dark);color:#f5f5f0;border-top:0}
+    .contact-section .section-number,.contact-section .section-intro{color:#9b9b91}
+    .contact-section .section-title{max-width:900px}
+    .contact-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:38px}
+    .contact-btn{border:1px solid #3a3a35;color:#f5f5f0;padding:13px 17px;border-radius:999px;font-size:12px;transition:.25s}
+    .contact-btn:hover{background:#f5f5f0;color:#11110f;transform:translateY(-2px)}
 
-.btn{
-display:inline-block;
-padding:12px 25px;
-margin:10px;
-border-radius:50px;
-text-decoration:none;
-font-weight:600;
-transition:0.4s;
-}
+    footer{padding:28px 0;font-size:11px;color:var(--muted)}
+    .footer-inner{display:flex;justify-content:space-between;gap:20px}
 
-.primary{
-background:#00e5ff;
-color:black;
-}
+    /* reveal */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+    .reveal.visible{opacity:1;transform:none}
 
-.secondary{
-border:2px solid #00e5ff;
-color:#00e5ff;
-}
-
-.btn:hover{
-transform:translateY(-5px);
-}
-
-section{
-padding:100px 10%;
-}
-
-.section-title{
-font-size:2.5rem;
-margin-bottom:40px;
-text-align:center;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:25px;
-}
-
-.card{
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(15px);
-padding:25px;
-border-radius:20px;
-border:1px solid rgba(255,255,255,0.1);
-transition:0.4s;
-}
-
-.card:hover{
-transform:translateY(-10px);
-border-color:#00e5ff;
-}
-
-.card h3{
-margin-bottom:10px;
-color:#00e5ff;
-}
-
-.timeline{
-max-width:1000px;
-margin:auto;
-}
-
-.timeline-item{
-margin-bottom:30px;
-padding:25px;
-background:rgba(255,255,255,0.05);
-border-radius:15px;
-}
-
-.skills{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:15px;
-}
-
-.skill{
-padding:12px 20px;
-background:#00e5ff20;
-border:1px solid #00e5ff;
-border-radius:30px;
-}
-
-.counter{
-font-size:3rem;
-font-weight:bold;
-color:#00e5ff;
-}
-
-.contact{
-text-align:center;
-}
-
-footer{
-padding:40px;
-text-align:center;
-color:#999;
-}
-
-@media(max-width:768px){
-
-.hero h1{
-font-size:3rem;
-}
-
-.hero h2{
-font-size:1.1rem;
-}
-
-}
-
-</style>
+    /* responsive */
+    @media(max-width:850px){
+      .wrap{width:min(100% - 34px,700px)}
+      .nav-links{display:none}
+      .menu-btn{display:grid}
+      .hero{padding-top:125px}
+      .hero-grid,.about-grid,.experience{grid-template-columns:1fr;gap:45px}
+      h1{font-size:clamp(4rem,18vw,7rem)}
+      .hero-copy{font-size:17px}
+      .hero-meta{max-width:520px}
+      section{padding:90px 0}
+      .section-head{grid-template-columns:1fr;gap:18px;margin-bottom:45px}
+      .section-number{font-size:11px}
+      .projects{grid-template-columns:1fr}
+      .stats{grid-template-columns:1fr 1fr}
+      .stat:nth-child(2){border-right:0}
+      .stat:nth-child(3),.stat:nth-child(4){border-top:1px solid var(--line)}
+      .stat:nth-child(4){border-right:0}
+      .research-item{grid-template-columns:70px 1fr}
+      .research-kind{display:none}
+      .exp{grid-template-columns:1fr;gap:8px}
+      .scroll-note{display:none}
+    }
+    @media(max-width:520px){
+      .nav{padding:13px 0}
+      .hero{min-height:auto;padding:120px 0 80px}
+      h1{font-size:4rem}
+      .hero-cta .btn{width:100%;justify-content:center}
+      .stats{grid-template-columns:1fr}
+      .stat{border-right:0!important;border-bottom:1px solid var(--line)}
+      .stat:last-child{border-bottom:0}
+      .project{min-height:300px;padding:24px}
+      .footer-inner{flex-direction:column}
+    }
+  </style>
 </head>
 
 <body>
-
-<div id="particles-js"></div>
-
-<nav>
-<a href="#about">About</a>
-<a href="#skills">Skills</a>
-<a href="#experience">Experience</a>
-<a href="#projects">Projects</a>
-<a href="#achievements">Achievements</a>
-<a href="#contact">Contact</a>
-</nav>
-
-<section class="hero">
-
-<h1>Sagnik Kumar</h1>
-
-<h2 id="typing"></h2>
-
-<p>
-Computer Science Undergraduate | ML Engineer |
-Computer Vision Researcher | Deep Learning Enthusiast
-</p>
-
-<div class="btns">
-
-<a class="btn primary" href="#">
-Resume</a>
-
-<a class="btn secondary"
-href="https://github.com/Sk1750-alt"
-target="_blank">
-GitHub
-</a>
-
-</div>
-
-</section>
-
-<section id="about">
-
-<h2 class="section-title">About Me</h2>
-
-<div class="card">
-
-<p>
-I am a Computer Science undergraduate at
-Ramakrishna Mission Vidyamandira.
-
-My interests include Machine Learning,
-Computer Vision, Deepfake Detection,
-Multimodal AI and Intelligent Surveillance Systems.
-
-Currently working as a Software Developer
-at FaceOff Technologies and building
-AI-powered products.
-</p>
-
-</div>
-
-</section>
-
-<section id="skills">
-
-<h2 class="section-title">Technical Skills</h2>
-
-<div class="skills">
-
-<div class="skill">Python</div>
-<div class="skill">Java</div>
-<div class="skill">C</div>
-<div class="skill">Machine Learning</div>
-<div class="skill">Deep Learning</div>
-<div class="skill">Computer Vision</div>
-<div class="skill">PyTorch</div>
-<div class="skill">TensorFlow</div>
-<div class="skill">OpenCV</div>
-<div class="skill">FastAPI</div>
-<div class="skill">Django</div>
-<div class="skill">React</div>
-<div class="skill">Git</div>
-
-</div>
-
-</section>
-
-<section id="experience">
-
-<h2 class="section-title">Experience</h2>
-
-<div class="timeline">
-
-<div class="timeline-item">
-<h3>FaceOff Technologies</h3>
-<p>Software Developer | 2025 - Present</p>
-</div>
-
-<div class="timeline-item">
-<h3>Google Student Ambassador</h3>
-<p>2025</p>
-</div>
-
-</div>
-
-</section>
-
-<section id="projects">
-
-<h2 class="section-title">Projects</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>Deepfake Detection</h3>
-<p>Explainable multimodal deepfake detection using XPlainVerse.</p>
-</div>
-
-<div class="card">
-<h3>FaceOff AI</h3>
-<p>Facial recognition and surveillance intelligence platform.</p>
-</div>
-
-<div class="card">
-<h3>Document Forgery Detection</h3>
-<p>Forgery detection for Aadhaar and PAN cards.</p>
-</div>
-
-<div class="card">
-<h3>Emotion Analysis</h3>
-<p>Multimodal emotion detection and behavioural analytics.</p>
-</div>
-
-</div>
-
-</section>
-
-<section id="achievements">
-
-<h2 class="section-title">Achievements</h2>
-
-<div class="grid">
-
-<div class="card">
-<div class="counter">Top 5</div>
-<p>IIT KGP Techfest 2025</p>
-</div>
-
-<div class="card">
-<div class="counter">Top 5</div>
-<p>IIT KGP Techfest 2026</p>
-</div>
-
-<div class="card">
-<div class="counter">1st</div>
-<p>The Turing Show</p>
-</div>
-
-<div class="card">
-<div class="counter">3rd</div>
-<p>IETE Eastern Zonal Seminar</p>
-</div>
-
-</div>
-
-</section>
-
-<section id="contact" class="contact">
-
-<h2 class="section-title">Contact</h2>
-
-<p>Email: sagnikkumar1750@gmail.com</p>
-
-<p>GitHub: Sk1750-alt</p>
-
-<p>LinkedIn: sagnik-kumar-699514269</p>
-
-</section>
-
-<footer>
-© 2026 Sagnik Kumar
-</footer>
-
-<script>
-
-const text =
-"ML Engineer | Computer Vision | Deep Learning | AI Research";
-
-let i=0;
-
-function typeWriter(){
-
-if(i<text.length){
-
-document.getElementById("typing").innerHTML += text.charAt(i);
-
-i++;
-
-setTimeout(typeWriter,60);
-
-}
-
-}
-
-typeWriter();
-
-particlesJS("particles-js",{
-
-particles:{
-number:{value:100},
-size:{value:3},
-move:{speed:2},
-line_linked:{
-enable:true
-}
-}
-
-});
-
-</script>
-
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">SK<span>.</span></a>
+      <div class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#research">Research</a>
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">◐</button>
+        <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="reveal">
+          <div class="eyebrow mono"><i></i> Available for meaningful problems</div>
+          <h1>Sagnik<br>Kumar<span style="color:var(--accent)">.</span></h1>
+          <p class="hero-copy">
+            I build <strong>AI systems, products and experiments</strong> at the intersection of
+            computer vision, multimodal intelligence and real-world software.
+          </p>
+          <div class="hero-cta">
+            <a class="btn primary magnetic" href="#work">Explore the work <span class="arrow">↗</span></a>
+            <a class="btn secondary magnetic" href="mailto:sagnikkumar1750@gmail.com">Let's talk <span class="arrow">↗</span></a>
+          </div>
+        </div>
+
+        <div class="hero-meta reveal">
+          <div class="meta-row"><span class="mono">01 / CURRENT</span><span>Computer Science · RKM Vidyamandira</span></div>
+          <div class="meta-row"><span class="mono">02 / FOCUS</span><span>ML · Computer Vision · Deep Learning · AI Research</span></div>
+          <div class="meta-row"><span class="mono">03 / BASE</span><span>India</span></div>
+          <div class="meta-row"><span class="mono">04 / NOW</span><span>Building intelligent products and researching explainable AI.</span></div>
+        </div>
+      </div>
+      <div class="wrap scroll-note mono">Scroll to explore</div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <div class="ticker-item">Artificial Intelligence <b>✦</b></div>
+        <div class="ticker-item">Computer Vision <b>✦</b></div>
+        <div class="ticker-item">Deep Learning <b>✦</b></div>
+        <div class="ticker-item">Research <b>✦</b></div>
+        <div class="ticker-item">Product Engineering <b>✦</b></div>
+        <div class="ticker-item">Artificial Intelligence <b>✦</b></div>
+        <div class="ticker-item">Computer Vision <b>✦</b></div>
+        <div class="ticker-item">Deep Learning <b>✦</b></div>
+        <div class="ticker-item">Research <b>✦</b></div>
+        <div class="ticker-item">Product Engineering <b>✦</b></div>
+      </div>
+    </div>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-number mono">01 — ABOUT</div>
+          <div>
+            <h2 class="section-title">Curious about difficult problems.</h2>
+            <p class="section-intro">Not just models. Not just interfaces. I like the space where research becomes something people can actually use.</p>
+          </div>
+        </div>
+        <div class="about-grid reveal">
+          <p class="about-large">
+            I am a Computer Science undergraduate and <em>AI engineer / researcher</em> working across
+            machine learning, computer vision, deepfake detection, multimodal AI and intelligent systems.
+          </p>
+          <div class="about-side">
+            <p>I enjoy taking an idea from an uncertain research question to a working prototype — then pushing it toward something reliable, explainable and deployable.</p>
+            <p>My work spans research experiments, production-oriented software and early-stage AI products. I care about the details between the demo and the real world.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-number mono">02 — SELECTED WORK</div>
+          <div>
+            <h2 class="section-title">Things I have been building.</h2>
+            <p class="section-intro">A selection of AI products, research systems and engineering projects.</p>
+          </div>
+        </div>
+
+        <div class="filter-row reveal">
+          <button class="filter active" data-filter="all">All</button>
+          <button class="filter" data-filter="ai">AI / ML</button>
+          <button class="filter" data-filter="product">Product</button>
+          <button class="filter" data-filter="research">Research</button>
+        </div>
+
+        <div class="projects">
+          <article class="project reveal" data-category="ai research">
+            <div class="project-top"><span class="project-index mono">01</span><span class="project-type mono">AI / RESEARCH</span></div>
+            <div>
+              <h3>DeepMeetGuard</h3>
+              <p>Meeting-time intelligence for detecting deepfake identities, suspicious behaviour and AI-assisted interview cheating.</p>
+              <div class="tags"><span class="tag">Computer Vision</span><span class="tag">Multimodal AI</span><span class="tag">Deepfake Detection</span></div>
+              <a class="project-link" href="#contact">Discuss the project <span>↗</span></a>
+            </div>
+          </article>
+
+          <article class="project reveal" data-category="product ai">
+            <div class="project-top"><span class="project-index mono">02</span><span class="project-type mono">PRODUCT</span></div>
+            <div>
+              <h3>wpbandu</h3>
+              <p>Local-first WhatsApp Message Intelligence for collecting, searching and analysing authorised group messages with grounded answers.</p>
+              <div class="tags"><span class="tag">FastAPI</span><span class="tag">React</span><span class="tag">Ollama</span><span class="tag">Whisper</span></div>
+              <a class="project-link" href="#contact">Discuss the project <span>↗</span></a>
+            </div>
+          </article>
+
+          <article class="project reveal" data-category="product ai">
+            <div class="project-top"><span class="project-index mono">03</span><span class="project-type mono">PRODUCT</span></div>
+            <div>
+              <h3>AllInsight</h3>
+              <p>AI-powered social media analytics combining trend forecasting, sentiment analysis, content optimisation and competitor benchmarking.</p>
+              <div class="tags"><span class="tag">NLP</span><span class="tag">Forecasting</span><span class="tag">Analytics</span></div>
+              <a class="project-link" href="#contact">Discuss the project <span>↗</span></a>
+            </div>
+          </article>
+
+          <article class="project reveal" data-category="ai product">
+            <div class="project-top"><span class="project-index mono">04</span><span class="project-type mono">AI / BIOMETRICS</span></div>
+            <div>
+              <h3>FaceOff</h3>
+              <p>Computer-vision systems for facial recognition, behavioural intelligence and surveillance-oriented applications.</p>
+              <div class="tags"><span class="tag">Face Recognition</span><span class="tag">Vision</span><span class="tag">ML</span></div>
+              <a class="project-link" href="#contact">Discuss the project <span>↗</span></a>
+            </div>
+          </article>
+
+          <article class="project reveal" data-category="research ai">
+            <div class="project-top"><span class="project-index mono">05</span><span class="project-type mono">RESEARCH</span></div>
+            <div>
+              <h3>XPlainVerse</h3>
+              <p>Explainable deepfake research using vision-language models to surface predictions, visual evidence and suspicious regions.</p>
+              <div class="tags"><span class="tag">VLM</span><span class="tag">XAI</span><span class="tag">Deepfakes</span></div>
+              <a class="project-link" href="#research">View research <span>↗</span></a>
+            </div>
+          </article>
+
+          <article class="project reveal" data-category="ai">
+            <div class="project-top"><span class="project-index mono">06</span><span class="project-type mono">COMPUTER VISION</span></div>
+            <div>
+              <h3>Multimodal Emotion Analysis</h3>
+              <p>Experiments combining facial expression, posture, gaze and audio signals to reason about behavioural and emotional cues.</p>
+              <div class="tags"><span class="tag">ViT</span><span class="tag">MediaPipe</span><span class="tag">Audio ML</span></div>
+              <a class="project-link" href="#contact">Discuss the project <span>↗</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="research">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-number mono">03 — RESEARCH</div>
+          <div>
+            <h2 class="section-title">From experiments to evidence.</h2>
+            <p class="section-intro">Research interests around biometrics, computer vision, deepfakes and explainable multimodal intelligence.</p>
+          </div>
+        </div>
+
+        <div class="research-list reveal">
+          <div class="research-item">
+            <span class="research-year mono">2026</span>
+            <span class="research-title">Explainable multimodal deepfake detection with vision-language models</span>
+            <span class="research-kind mono">CV / XAI</span>
+          </div>
+          <div class="research-item">
+            <span class="research-year mono">2026</span>
+            <span class="research-title">Biometric and behavioural intelligence systems</span>
+            <span class="research-kind mono">BIOMETRICS</span>
+          </div>
+          <div class="research-item">
+            <span class="research-year mono">2025–26</span>
+            <span class="research-title">Multimodal emotion and behavioural analysis</span>
+            <span class="research-kind mono">MULTIMODAL</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-number mono">04 — EXPERIENCE</div>
+          <div>
+            <h2 class="section-title">Learning by shipping.</h2>
+          </div>
+        </div>
+
+        <div class="experience">
+          <p class="experience-note reveal">I like environments where research, engineering and product decisions are close enough to influence each other.</p>
+          <div class="exp-list reveal">
+            <div class="exp">
+              <span class="exp-date mono">2025 — PRESENT</span>
+              <div><h3>FaceOff Technologies</h3><p>Software Developer / ML Engineer · AI products, computer vision and intelligent systems.</p></div>
+            </div>
+            <div class="exp">
+              <span class="exp-date mono">2025</span>
+              <div><h3>Google Student Ambassador</h3><p>Community, technology and student engagement.</p></div>
+            </div>
+            <div class="exp">
+              <span class="exp-date mono">2025 — 2026</span>
+              <div><h3>Research & Internship Work</h3><p>Biometrics, deepfake detection and multimodal AI research connected with academic collaborations.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="achievements">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-number mono">05 — HIGHLIGHTS</div>
+          <div>
+            <h2 class="section-title">A few milestones along the way.</h2>
+          </div>
+        </div>
+
+        <div class="stats reveal">
+          <div class="stat"><div class="stat-num">Top 5</div><div class="stat-label">IIT KGP Techfest 2025 — AllInsight</div></div>
+          <div class="stat"><div class="stat-num">Top 5</div><div class="stat-label">IIT KGP Techfest 2026 — UBAN</div></div>
+          <div class="stat"><div class="stat-num">1st</div><div class="stat-label">The Turing Show — RKM Vidyamandira</div></div>
+          <div class="stat"><div class="stat-num">3rd</div><div class="stat-label">IETE Eastern Zonal Seminar</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-number mono">06 — TOOLKIT</div>
+          <div>
+            <h2 class="section-title">Tools are means, not the identity.</h2>
+            <p class="section-intro">A practical stack for turning ideas into working systems.</p>
+          </div>
+        </div>
+        <div class="skills-wrap reveal">
+          <span class="skill">Python</span><span class="skill">PyTorch</span><span class="skill">TensorFlow</span>
+          <span class="skill">OpenCV</span><span class="skill">Transformers</span><span class="skill">FastAPI</span>
+          <span class="skill">Django</span><span class="skill">React</span><span class="skill">TypeScript</span>
+          <span class="skill">Docker</span><span class="skill">AWS</span><span class="skill">Git</span>
+          <span class="skill">Ollama</span><span class="skill">Playwright</span><span class="skill">Computer Vision</span>
+          <span class="skill">Deep Learning</span><span class="skill">Multimodal AI</span><span class="skill">Machine Learning</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-number mono">07 — CONTACT</div>
+          <div>
+            <h2 class="section-title">Have a hard problem?<br>Let's build.</h2>
+            <p class="section-intro">For research, engineering, collaborations or interesting AI ideas — reach out.</p>
+            <div class="contact-links">
+              <a class="contact-btn" href="mailto:sagnikkumar1750@gmail.com">Email ↗</a>
+              <a class="contact-btn" href="https://github.com/Sk1750-alt" target="_blank" rel="noopener">GitHub ↗</a>
+              <a class="contact-btn" href="https://www.linkedin.com/in/sagnik-kumar-699514269/" target="_blank" rel="noopener">LinkedIn ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© 2026 Sagnik Kumar</span>
+      <span class="mono">Built with curiosity.</span>
+    </div>
+  </footer>
+
+  <script>
+    // Theme
+    const themeBtn = document.getElementById('themeBtn');
+    const savedTheme = localStorage.getItem('sk-theme');
+    if(savedTheme === 'dark') document.body.classList.add('dark');
+    themeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('sk-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.querySelector('.nav-links');
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.style.display === 'flex';
+      navLinks.style.display = open ? '' : 'flex';
+      if(!open){
+        navLinks.style.position='absolute';
+        navLinks.style.top='65px';
+        navLinks.style.left='17px';
+        navLinks.style.right='17px';
+        navLinks.style.padding='18px';
+        navLinks.style.flexDirection='column';
+        navLinks.style.alignItems='flex-start';
+        navLinks.style.background='var(--surface)';
+        navLinks.style.border='1px solid var(--line)';
+        navLinks.style.borderRadius='18px';
+        navLinks.style.boxShadow='var(--shadow)';
+      }
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Project filtering
+    const filters = document.querySelectorAll('.filter');
+    const projects = document.querySelectorAll('.project');
+    filters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filters.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        projects.forEach(card => {
+          const show = filter === 'all' || card.dataset.category.includes(filter);
+          card.style.display = show ? '' : 'none';
+        });
+      });
+    });
+
+    // Subtle magnetic buttons
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width/2) * .12;
+        const y = (e.clientY - r.top - r.height/2) * .12;
+        btn.style.transform = `translate(${x}px,${y}px)`;
+      });
+      btn.addEventListener('mouseleave', () => btn.style.transform = '');
+    });
+  </script>
 </body>
 </html>
+'''
+
+path = Path("/mnt/data/index.html")
+path.write_text(html, encoding="utf-8")
+print(f"Created: {path}")
+print(f"Lines: {len(html.splitlines())}")
